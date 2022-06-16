@@ -1,13 +1,7 @@
 #!/bin/bash
 set -ex
 
-api_key="vX1RpxbnN5xg0LdYVhymUlTy6C8-iOoZCyHpAvVy9lQ1"
-project_id="ZzuNUCJAo0SJCrwqbM9SHQ"
-job_id="MAg6sB-8a0eL65uqPZwyrg"
-
 execution_id=$(curl -X POST "https://api.testproject.io/v2/projects/$project_id/jobs/$job_id/run" -H "accept: application/json" -H "Authorization: $api_key" -H "Content-Type: application/json" --data-binary '{"queue": true, "restartDriver": true, "testRetries": 1}' | jq -r '.id')
-
-#execution_id="whbdaoMWL0OTKB4u5q-5Rg"
 
 echo $execution_id
 
@@ -29,20 +23,12 @@ echo $status
 echo $report
 echo $message
 
-
 # --- Export Environment Variables for other Steps:
 # You can export Environment Variables for other Steps with
 #  envman, which is automatically installed by `bitrise setup`.
 # A very simple example:
 
 envman add --key testproject_status_message --value "$message"
-
-if [ $status == "Failed" ]
-then
-  exit 1
-else
-  exit 0  
-fi
 
 # Envman can handle piped inputs, which is useful if the text you want to
 # share is complex and you don't want to deal with proper bash escaping:
@@ -55,3 +41,11 @@ fi
 # The exit code of your Step is very important. If you return
 #  with a 0 exit code `bitrise` will register your Step as "successful".
 # Any non zero exit code will be registered as "failed" by `bitrise`.
+
+if [ $status == "Failed" ]
+then
+  exit 1
+else
+  exit 0  
+fi
+

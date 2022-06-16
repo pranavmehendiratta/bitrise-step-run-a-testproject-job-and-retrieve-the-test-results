@@ -44,7 +44,6 @@ host_os_tags:
 type_tags:
   - test
 
-is_requires_admin_user: true
 is_always_run: false
 is_skippable: false
 run_if: ""
@@ -92,8 +91,7 @@ inputs:
 outputs:
     - testproject_status_message:
       opts:
-      title: Status of the finished Job
-      summary: Contains the status and report url of the job that was executed
-      description: |
-        The message is formatted as - [Passed/Failed]: [Url for the report of this job run in testproject] 
-        
+        title: Status of the finished Job
+        summary: Contains the status and report url of the job that was executed
+        description: |
+          The message is formatted as - [Passed/Failed]: [Url for the report of this job run in testproject] 
